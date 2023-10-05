@@ -22,6 +22,8 @@ if(option == 1):
     Q = Functions.capacitanceCharge(C, v)
     U = Functions.storedEnergy(Q, v)
     print("C: ", C, "F")
+    print("Q: ", Q , "C")
+    print("U: ", U, "J")
 
 #para la esfera
 elif(option == 2):
@@ -33,6 +35,8 @@ elif(option == 2):
     Q = Functions.capacitanceCharge(C, v)
     U = Functions.storedEnergy(Q, v)
     print("C: ", C, "F")
+    print("Q: ", Q , "C")
+    print("U: ", U, "J")
 
 #para el cilindro
 elif(option == 3):
@@ -45,3 +49,5 @@ elif(option == 3):
     Q = Functions.capacitanceCharge(C, v)
     U = Functions.storedEnergy(Q, v)
     print("C: ", C, "F")
+    print("Q: ", Q , "C")
+    print("U: ", U, "J")
