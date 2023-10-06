@@ -68,15 +68,15 @@ elif(option == 3):
     l = float(input("Ingrese el largo (m): "))
     v = float(input("Ingrese voltaje: "))
     
-    C_0 = Functions.capacitanceCylinder(r_ext, r_int)
+    C_0 = Functions.capacitanceCylinder(r_ext, r_int, l)
     C = Functions.capacitanceCylinderDielectric(r_ext, r_int, l, dielectric, quantity)
     Q = Functions.capacitanceCharge(C, v)
     Q_0 = Functions.capacitanceCharge(C_0, v)
     U = Functions.storedEnergy(C, C_0, v, quantity)
     
     if(dielectric == "y"):
-        sigma = Functions.freeChargeCylinder(r_ext, r_int, l, quantity)
-        sigma_i = Functions.bondedChargeCylinder(r_ext, r_int, l, quantity)
+        sigma = Functions.freeChargeCylinder(Q, r_ext, r_int, l, quantity)
+        sigma_i = Functions.bondedChargeCylinder(Q, r_ext, r_int, l, quantity)
         print("C: ", C, "F")
         print("Q: ", Q , "C")
         print("U: ", U, "J")

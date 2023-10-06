@@ -124,17 +124,23 @@ def bondedChargeSphere(Q, r_ext, r_int, quantity):
 # para la carga libre cilindrica
 def freeChargeCylinder(Q, r_ext, r_int, l, quantity):
     if(quantity == "full"):
-        freeCharges[0] = Q/(p*l*r_int**2)
-        freeCharges[1]
+        freeCharges[0] = (Q*k)/(p*l*r_int**2)
+        freeCharges[1] = (Q*k)/(p*l*r_ext**2)
         return freeCharges
     elif(quantity == "half"):
+        freeCharges[0] = (2*Q)/(p*l*r_int**2)
+        freeCharges[1] = (2*Q)/(p*l*r_ext**2)
+        freeCharges[2] = (2*k*Q)/(p*l*r_int**2)
+        freeCharges[3] = (2*k*Q)/(p*l*r_ext**2)
         return freeCharges
 
 # para la carga ligada cilindrica
-def bondedChargeCylinder(quantity):
+def bondedChargeCylinder(Q, r_ext, r_int, l, quantity):
     if(quantity == "full"):
-        bondedCharges[0]
-        bondedCharges[1]
+        bondedCharges[0] = (Q*k)/(p*l*r_int**2)*(1-(1/k))
+        bondedCharges[1] = (Q*k)/(p*l*r_ext**2)*(1-(1/k))
         return bondedCharges
     elif(quantity == "half"):
+        bondedCharges[0] = (2*k*Q)/(p*l*r_int**2)*(1-(1/k))
+        bondedCharges[1] = (2*k*Q)/(p*l*r_ext**2)*(1-(1/k))
         return bondedCharges
