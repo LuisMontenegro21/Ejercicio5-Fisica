@@ -22,7 +22,7 @@ if(option == 1):
     
     if(dielectric == "y"):
         sigma = Functions.freeChargeParallel(Q, h, l, quantity)
-        sigma_i = Functions.bondedChargeParallel(Q, h,l,quantity)
+        sigma_i = Functions.bondedChargeParallel(Q, h, l, quantity)
         print("C: ", C, "F")
         print("Q: ", Q , "C")
         print("U: ", U, "J")

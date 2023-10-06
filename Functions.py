@@ -67,15 +67,20 @@ def storedEnergy(C, C_0,  V, quantity):
     else:
         C = 0
         return C*((V/k)**2)/2 + C_0*(V**2)/2
+    
+############################################
+# Para calcular las densidades
+############################################
+
 # para la carga libre paralela
 def freeChargeParallel(Q, h, l, quantity):
     if(quantity == "full"):
-        freeCharges[0] = (k*Q)/(h*l)
+        freeCharges[0] = Q/(h*l)
         return freeCharges
     elif(quantity == "half"):
         #dos densidades
         freeCharges[0] = (2*Q)/(h*l)
-        freeCharges[1] = 1
+        freeCharges[1] = (2*Q*k)/(h*l)
         return freeCharges
 
 # para la carga ligada paralela
@@ -84,7 +89,7 @@ def bondedChargeParallel(Q, h, l, quantity):
         bondedCharges[0] = (Q/(h*l)) * (1-(1/k))
         return bondedCharges
     elif(quantity == "half"):
-        bondedCharges[0] = (2*Q/(h*l)) 
+        bondedCharges[0] = (2*Q*k/(h*l) * (1-(1/k))) 
         return bondedCharges
 
 # para la carga libre esferica
@@ -117,8 +122,10 @@ def bondedChargeSphere(Q, r_ext, r_int, quantity):
         return bondedCharges
 
 # para la carga libre cilindrica
-def freeChargeCylinder(quantity):
+def freeChargeCylinder(Q, r_ext, r_int, l, quantity):
     if(quantity == "full"):
+        freeCharges[0] = Q/(p*l*r_int**2)
+        freeCharges[1]
         return freeCharges
     elif(quantity == "half"):
         return freeCharges
@@ -126,6 +133,8 @@ def freeChargeCylinder(quantity):
 # para la carga ligada cilindrica
 def bondedChargeCylinder(quantity):
     if(quantity == "full"):
+        bondedCharges[0]
+        bondedCharges[1]
         return bondedCharges
     elif(quantity == "half"):
         return bondedCharges
