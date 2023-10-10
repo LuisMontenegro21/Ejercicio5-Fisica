@@ -60,7 +60,7 @@ def capacitanceCharge(C, V):
 #dependiendo si C_0 es 0 en caso tenga dielectrico, sino 
 def storedEnergy(C, C_0,  V, quantity):
     if(quantity == "half"):
-        return C*((V/k)**2)/2 + C_0*(V**2)/2
+        return (C/2)*((V/k)**2)/2 + (C_0/2)*(V**2)/2
     elif(quantity == "full"):
         C_0 = 0
         return C*((V/k)**2)/2 + C_0*(V**2)/2
@@ -74,73 +74,78 @@ def storedEnergy(C, C_0,  V, quantity):
 
 # para la carga libre paralela
 def freeChargeParallel(Q, h, l, quantity):
+    freeCharges = [0, 0, 0, 0]
     if(quantity == "full"):
         freeCharges[0] = Q/(h*l)
         return freeCharges
     elif(quantity == "half"):
         #dos densidades
-        freeCharges[0] = (2*Q)/(h*l)
-        freeCharges[1] = (2*Q*k)/(h*l)
+        print(Q)
+        freeCharges[0] = Q/((k+1)*h*(l/2))
+        freeCharges[1] = (Q/((k+1)*h*(l/2)))*k
         return freeCharges
 
 # para la carga ligada paralela
 def bondedChargeParallel(Q, h, l, quantity):
+    bondedCharges = [0, 0, 0, 0]
     if(quantity == "full"):
         bondedCharges[0] = (Q/(h*l)) * (1-(1/k))
         return bondedCharges
     elif(quantity == "half"):
-        bondedCharges[0] = (2*Q*k/(h*l) * (1-(1/k))) 
+        bondedCharges[0] = ((Q*k)/((k+1)*h*(l/2)) * (1-(1/k))) 
         return bondedCharges
 
 # para la carga libre esferica
 def freeChargeSphere(Q, r_ext, r_int, quantity):
-
+    freeCharges = [0, 0, 0, 0]
     if(quantity == "full"):
         #dos densidades de carga libre
-        freeCharges[0] = (k*Q)/(4*p*(r_int**2)*(1+k))
-        freeCharges[1] = (k*Q)/(4*p*(r_ext**2)*(1+k))
+        freeCharges[0] = Q/(4*p*(r_int**2))
+        freeCharges[1] = Q/(4*p*(r_ext**2))
         return freeCharges
     elif(quantity == "half"):
         #cuatro densidades de carga libre
-        freeCharges[0] = Q/(2*p*(r_int**2)*(1+k))
-        freeCharges[1] = Q/(2*p*(r_ext**2)*(1+k))
-        freeCharges[2] = (k*Q)/(2*p*(r_int**2)*(1+k))
-        freeCharges[3] = (k*Q)/(2*p*(r_ext**2)*(1+k))
+        freeCharges[0] = (Q/(1+k))*(1/(2*p*(r_int**2)))
+        freeCharges[1] = (Q/(1+k))*(1/(2*p*(r_ext**2)))
+        freeCharges[2] = (k*Q/(1+k))*(1/(2*p*(r_int**2)))
+        freeCharges[3] = (k*Q/(1+k))*(1/(2*p*(r_ext**2)))
         return freeCharges
 
 # para la carga ligada esferica
 def bondedChargeSphere(Q, r_ext, r_int, quantity):
-    
+    bondedCharges = [0, 0, 0, 0]
     if(quantity == "full"):
-        bondedCharges[0] = ((k-1)*Q) / (4*p*(r_int**2)*(1+k))
-        bondedCharges[1] = ((k-1)*Q) / (4*p*(r_ext**2)*(1+k))
+        bondedCharges[0] = (Q/(4*p*(r_int**2)))*(1-1/k)
+        bondedCharges[1] = (Q/(4*p*(r_ext**2)))*(1-1/k)
         return bondedCharges
     elif(quantity == "half"):
         
-        bondedCharges[0] =  ((k-1)*Q) / (2*p*(r_int**2)*(1+k))
-        bondedCharges[1] =  ((k-1)*Q) / (2*p*(r_ext**2)*(1+k))
+        bondedCharges[0] =  (k*Q/(1+k))*(1/(2*p*(r_int**2)))*(1-1/k)
+        bondedCharges[1] =  (k*Q/(1+k))*(1/(2*p*(r_ext**2)))*(1-1/k)
         return bondedCharges
 
 # para la carga libre cilindrica
 def freeChargeCylinder(Q, r_ext, r_int, l, quantity):
+    freeCharges = [0, 0, 0, 0]
     if(quantity == "full"):
-        freeCharges[0] = (Q*k)/(p*l*r_int**2)
-        freeCharges[1] = (Q*k)/(p*l*r_ext**2)
+        freeCharges[0] = Q/(2*p*l*r_int)
+        freeCharges[1] = Q/(2*p*l*r_ext)
         return freeCharges
     elif(quantity == "half"):
-        freeCharges[0] = (2*Q)/(p*l*r_int**2)
-        freeCharges[1] = (2*Q)/(p*l*r_ext**2)
-        freeCharges[2] = (2*k*Q)/(p*l*r_int**2)
-        freeCharges[3] = (2*k*Q)/(p*l*r_ext**2)
+        freeCharges[0] = (Q/(1+k))*(1/(p*l*(r_int)))
+        freeCharges[1] = (Q/(1+k))*(1/(p*l*(r_ext)))
+        freeCharges[2] = (k*Q/(1+k))*(1/(p*l*(r_int)))
+        freeCharges[3] = (k*Q/(1+k))*(1/(p*l*(r_ext)))
         return freeCharges
 
 # para la carga ligada cilindrica
 def bondedChargeCylinder(Q, r_ext, r_int, l, quantity):
+    bondedCharges = [0, 0, 0, 0]
     if(quantity == "full"):
-        bondedCharges[0] = (Q*k)/(p*l*r_int**2)*(1-(1/k))
-        bondedCharges[1] = (Q*k)/(p*l*r_ext**2)*(1-(1/k))
+        bondedCharges[0] = Q/(2*p*l*r_int)*(1-(1/k))
+        bondedCharges[1] = Q/(2*p*l*r_ext)*(1-(1/k))
         return bondedCharges
     elif(quantity == "half"):
-        bondedCharges[0] = (2*k*Q)/(p*l*r_int**2)*(1-(1/k))
-        bondedCharges[1] = (2*k*Q)/(p*l*r_ext**2)*(1-(1/k))
+        bondedCharges[0] = (k*Q/(1+k))*(1/(p*l*(r_int)))*(1-(1/k))
+        bondedCharges[1] = (k*Q/(1+k))*(1/(p*l*(r_ext)))*(1-(1/k))
         return bondedCharges
